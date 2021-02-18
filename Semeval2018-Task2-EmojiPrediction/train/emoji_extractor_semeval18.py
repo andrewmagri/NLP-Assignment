@@ -13,7 +13,7 @@ $ python emoji_extractor_semeval18.py tweets_us.json us
 '''
 
 import sys  
-reload(sys)
+reload(sys)  
 sys.setdefaultencoding('utf8')
 import json
 import re
