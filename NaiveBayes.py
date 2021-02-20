@@ -88,9 +88,13 @@ def run():
 
 trainTextDir ="Semeval2018-Task2-EmojiPrediction\\Data\\tweet_by_ID_04_2_2021__05_27_42.txt.text"
 trainLabelDir = "Semeval2018-Task2-EmojiPrediction\\Data\\tweet_by_ID_04_2_2021__05_27_42.txt.labels"
-# testTextDir = "Semeval2018-Task2-EmojiPrediction\\test\\us_test.text"
-# testLabelDir = "Semeval2018-Task2-EmojiPrediction\\test\\us_test.labels"
+testTextDir = "Semeval2018-Task2-EmojiPrediction\\test\\us_test.text"
+testLabelDir = "Semeval2018-Task2-EmojiPrediction\\test\\us_test.labels"
 trainTweets = get_train_data(trainTextDir, trainLabelDir)
-# testTweets = get_test_data(testTextDir, testLabelDir)
-tfidf_matrix = extract_tfidf_features(trainTweets.tweetsText)
-clf = run(tfidf_matrix, trainTweets.labels)
+testTweets = get_test_data(testTextDir, testLabelDir)
+tfidf_featuriser = extract_tfidf_featuriser(trainTweets.tweetsText)
+train_tfidif_matrix = tfidf_featuriser.transform(trainTweets.tweetsText)
+test_tfidif_matrix = tfidf_featuriser.transform(testTweets.tweetsText)
+clf = naive_bayes_classifier(train_tfidif_matrix, trainTweets.labels)
+prectiions = clf.predict(test_tfidif_matrix)
+print(prectiions)
