@@ -2,12 +2,11 @@ from gensim.models import Word2Vec
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 
-def extract_tfidf_features(tweets):
+def extract_tfidf_featuriser(tweets):
     tfidf_featuriser = TfidfVectorizer()
     tfidf_featuriser.fit(tweets)
-    tfidf_matrix = tfidf_featuriser.transform(tweets)
 
-    return tfidf_matrix
+    return tfidf_featuriser
 
 
 def test_word2vec(text):
