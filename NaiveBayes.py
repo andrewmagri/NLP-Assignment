@@ -2,8 +2,10 @@ from sklearn.naive_bayes import MultinomialNB
 from WordEmbeddings import *
 from Preprocessing import *
 from Tweets import *
+from sklearn.metrics import confusion_matrix,precision_score,recall_score,f1_score
 
 import pickle
+import numpy as np
 
 
 def check_if_created(filename):
@@ -46,6 +48,15 @@ def get_train_data(dirTrainText, dirTrainLabel):
         return get_data(dirTrainText, dirTrainLabel,filename)
 
 
+def get_test_data(dirTestText, dirTestLabel):
+    filename = "TestTweets"
+    if check_if_created(filename):
+        with open(filename + '.pickle', 'rb') as handle:
+            return pickle.load(handle)
+    else:
+        return get_data(dirTestText, dirTestLabel, filename)
+
+
 def preprocess(tweets,labels):
     tweets_object = Tweets()
     for i in range(0, len(tweets)):
@@ -78,8 +89,6 @@ def naive_bayes_classifier(tfidf_matrix, labels):
     nb_classifier = MultinomialNB()
     nb_classifier.fit(tfidf_matrix, labels)
     return nb_classifier
-    # to test the classifier
-    # predictions = nb_classifier.predict(test_tfidf_docterm_matrix)
 
 
 def run():
@@ -95,6 +104,12 @@ testTweets = get_test_data(testTextDir, testLabelDir)
 tfidf_featuriser = extract_tfidf_featuriser(trainTweets.tweetsText)
 train_tfidif_matrix = tfidf_featuriser.transform(trainTweets.tweetsText)
 test_tfidif_matrix = tfidf_featuriser.transform(testTweets.tweetsText)
-clf = naive_bayes_classifier(train_tfidif_matrix, trainTweets.labels)
-prectiions = clf.predict(test_tfidif_matrix)
-print(prectiions)
+clf = naive_bayes_classifier(train_tfidif_matrix, trainTweets.tweetsLabel)
+predictions = clf.predict(test_tfidif_matrix)
+print(predictions)
+print(confusion_matrix(testTweets.tweetsLabel,predictions))
+print("Precision: " + str(precision_score(testTweets.tweetsLabel,predictions,average="macro")))
+print("Recall: " + str(recall_score(testTweets.tweetsLabel,predictions,average="macro")))
+print("F1 Score: " + str(f1_score(testTweets.tweetsLabel,predictions,average="macro")))
+accuracy = np.sum(predictions == testTweets.tweetsLabel)/len(testTweets.tweetsLabel)
+print('Accuracy: {:.3%}'.format(accuracy))
