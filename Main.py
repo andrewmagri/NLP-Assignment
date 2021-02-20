@@ -71,8 +71,7 @@ elif option == 2:
             continue
         tweetText.append(' '.join(tweet.text))
 
-
-    matrix = word_embeddings(tweetText)
+    tfidf_matrix = extract_tfidf_features(tweetText)
     print("ds")
 
 
