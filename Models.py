@@ -10,8 +10,5 @@ def naive_bayes_classifier(tfidf_matrix, labels):
     # predictions = nb_classifier.predict(test_tfidf_docterm_matrix)
 
 
-def svm(tfidf_matrix, labels):
-    clf = make_pipeline(StandardScaler(), SVC(gamma='auto'))
-    clf.fit(tfidf_matrix, labels)
-    return clf
+
 

@@ -2,16 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="efa44c2c-e5d9-4135-8de1-56285e5208ab" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Tweets.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/NLP-Assignment.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/NLP-Assignment.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NaiveBayes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SVM.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestTweets.pickle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TrainTweets.pickle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tweets.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/Tweets.pickle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/preprocessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/Preprocessing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Models.py" afterDir="false" />
     </list>
-    <list id="37afd530-be1b-47ab-b0b3-ba52d4522036" name="Changes by andre" comment="" />
+    <list id="37afd530-be1b-47ab-b0b3-ba52d4522036" name="Changes by andre" comment="">
+      <change beforePath="$PROJECT_DIR$/Models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Models.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,12 +30,25 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/Models.py">
+      <ranges>
+        <range start1="0" end1="4" start2="0" end2="1" changelist="37afd530-be1b-47ab-b0b3-ba52d4522036" />
+        <range start1="5" end1="10" start2="2" end2="3" changelist="37afd530-be1b-47ab-b0b3-ba52d4522036" />
+        <range start1="12" end1="16" start2="5" end2="6" changelist="efa44c2c-e5d9-4135-8de1-56285e5208ab" />
+      </ranges>
+    </file>
+  </component>
   <component name="ProjectId" id="1ohpZio95o6NYYpEfC5P4p8PG9x" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -116,11 +129,25 @@
       <workItem from="1613755737793" duration="33000" />
       <workItem from="1613755783719" duration="192000" />
       <workItem from="1613756412235" duration="11849000" />
+      <workItem from="1613828026372" duration="756000" />
     </task>
+    <task id="LOCAL-00001" summary="Code clean up and addition of funcion... model does not work">
+      <created>1613826187199</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1613826187199</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Code clean up and addition of funcion... model does not work" />
+    <option name="LAST_COMMIT_MESSAGE" value="Code clean up and addition of funcion... model does not work" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
