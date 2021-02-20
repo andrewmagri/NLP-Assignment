@@ -1,0 +1,85 @@
+Index: NaiveBayes.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from sklearn.naive_bayes import MultinomialNB\r\nfrom WordEmbeddings import *\r\nfrom Preprocessing import *\r\nfrom Tweets import *\r\n\r\nimport pickle\r\n\r\n\r\ndef check_if_created(filename):\r\n    try:\r\n        file = open(filename + \".pickle\")\r\n        file.close()\r\n        return True\r\n    except IOError:\r\n        print(\"File not found\")\r\n        return False\r\n\r\n\r\ndef get_data(dirText, dirLabel,output_file_name):\r\n    # Obtaining tweet text\r\n    with open(dirText, \"r\",\r\n              encoding=\"utf8\") as t:\r\n        tweets = t.read()\r\n        tweets = tweets.split(\"\\n\")\r\n\r\n    # Obtaining tweet label\r\n    with open(dirLabel, \"r\",\r\n              encoding=\"utf8\") as l:\r\n        labels = l.read()\r\n        labels = labels.split(\"\\n\")\r\n\r\n    tweets_object = preprocess(tweets, labels)\r\n\r\n    with open(output_file_name+'.pickle', 'wb') as handle:\r\n        pickle.dump(tweets_object, handle, protocol=pickle.HIGHEST_PROTOCOL)\r\n\r\n    return tweets_object\r\n\r\n\r\ndef get_train_data(dirTrainText, dirTrainLabel):\r\n    filename = \"TrainTweets\"\r\n    if check_if_created(filename):\r\n        with open(filename + '.pickle', 'rb') as handle:\r\n            return pickle.load(handle)\r\n    else:\r\n        return get_data(dirTrainText, dirTrainLabel,filename)\r\n\r\n\r\ndef preprocess(tweets,labels):\r\n    tweets_object = Tweets()\r\n    for i in range(0, len(tweets)):\r\n        tweets[i] = \" \".join(tweets[i].split())\r\n        tweets[i] = tokenize(tweets[i])\r\n\r\n        newText = []\r\n        for word in tweets[i]:\r\n            # Checking for @ Location and eliminating any words that follow\r\n            if word == \"@\":\r\n                break\r\n\r\n            word = lemmatise(word)\r\n            word = remove_stopwords(word)\r\n            word = remove_url(word)\r\n            word = remove_puncuation(word)\r\n\r\n            if word != \"\" and word is not None:\r\n                newText.append(word)\r\n\r\n        if len(newText) == 0:\r\n            continue\r\n\r\n        tweets_object.tweetsText.append(' '.join(newText))\r\n        tweets_object.tweetsLabel.append(labels[i])\r\n    return tweets_object\r\n\r\n\r\ndef naive_bayes_classifier(tfidf_matrix, labels):\r\n    nb_classifier = MultinomialNB()\r\n    nb_classifier.fit(tfidf_matrix, labels)\r\n    return nb_classifier\r\n    # to test the classifier\r\n    # predictions = nb_classifier.predict(test_tfidf_docterm_matrix)\r\n\r\n\r\ndef run():\r\n    print()\r\n\r\n\r\ntrainTextDir =\"Semeval2018-Task2-EmojiPrediction\\\\Data\\\\tweet_by_ID_04_2_2021__05_27_42.txt.text\"\r\ntrainLabelDir = \"Semeval2018-Task2-EmojiPrediction\\\\Data\\\\tweet_by_ID_04_2_2021__05_27_42.txt.labels\"\r\ntestTextDir = \"Semeval2018-Task2-EmojiPrediction\\\\test\\\\us_test.text\"\r\ntestLabelDir = \"Semeval2018-Task2-EmojiPrediction\\\\test\\\\us_test.labels\"\r\ntrainTweets = get_train_data(trainTextDir, trainLabelDir)\r\ntestTweets = get_test_data(testTextDir, testLabelDir)\r\ntfidf_featuriser = extract_tfidf_featuriser(trainTweets.tweetsText)\r\ntrain_tfidif_matrix = tfidf_featuriser.transform(trainTweets.tweetsText)\r\ntest_tfidif_matrix = tfidf_featuriser.transform(testTweets.tweetsText)\r\nclf = naive_bayes_classifier(train_tfidif_matrix, trainTweets.labels)\r\nprectiions = clf.predict(test_tfidif_matrix)\r\nprint(prectiions)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/NaiveBayes.py b/NaiveBayes.py
+--- a/NaiveBayes.py	(revision fac735a48153918e93fce27524ad5b2f6d96c1d1)
++++ b/NaiveBayes.py	(date 1613837737523)
+@@ -46,6 +46,15 @@
+         return get_data(dirTrainText, dirTrainLabel,filename)
+ 
+ 
++def get_test_data(dirTestText, dirTestLabel):
++    filename = "TestTweets"
++    if check_if_created(filename):
++        with open(filename + '.pickle', 'rb') as handle:
++            return pickle.load(handle)
++    else:
++        return get_data(dirTestText, dirTestLabel, filename)
++
++
+ def preprocess(tweets,labels):
+     tweets_object = Tweets()
+     for i in range(0, len(tweets)):
+@@ -95,6 +104,6 @@
+ tfidf_featuriser = extract_tfidf_featuriser(trainTweets.tweetsText)
+ train_tfidif_matrix = tfidf_featuriser.transform(trainTweets.tweetsText)
+ test_tfidif_matrix = tfidf_featuriser.transform(testTweets.tweetsText)
+-clf = naive_bayes_classifier(train_tfidif_matrix, trainTweets.labels)
++clf = naive_bayes_classifier(train_tfidif_matrix, trainTweets.tweetsLabel)
+ prectiions = clf.predict(test_tfidif_matrix)
+ print(prectiions)
+Index: Models.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from sklearn.naive_bayes import MultinomialNB\r\nfrom sklearn.pipeline import make_pipeline\r\nfrom sklearn.preprocessing import StandardScaler\r\nfrom sklearn.svm import SVC\r\n\r\ndef naive_bayes_classifier(tfidf_matrix, labels):\r\n    nb_classifier = MultinomialNB()\r\n    nb_classifier.fit(tfidf_matrix, labels)\r\n    # to test the classifier\r\n    # predictions = nb_classifier.predict(test_tfidf_docterm_matrix)\r\n\r\n\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Models.py b/Models.py
+--- a/Models.py	(revision fac735a48153918e93fce27524ad5b2f6d96c1d1)
++++ b/Models.py	(date 1613837737533)
+@@ -1,13 +1,6 @@
+-from sklearn.naive_bayes import MultinomialNB
+-from sklearn.pipeline import make_pipeline
+-from sklearn.preprocessing import StandardScaler
+-from sklearn.svm import SVC
++
+ 
+-def naive_bayes_classifier(tfidf_matrix, labels):
+-    nb_classifier = MultinomialNB()
+-    nb_classifier.fit(tfidf_matrix, labels)
+-    # to test the classifier
+-    # predictions = nb_classifier.predict(test_tfidf_docterm_matrix)
++
+ 
+ 
+ 
+Index: WordEmbeddings.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from gensim.models import Word2Vec\r\nfrom sklearn.feature_extraction.text import TfidfVectorizer\r\n\r\n\r\ndef extract_tfidf_features(tweets):\r\n    tfidf_featuriser = TfidfVectorizer()\r\n    tfidf_featuriser.fit(tweets)\r\n    tfidf_matrix = tfidf_featuriser.transform(tweets)\r\n\r\n    return tfidf_matrix\r\n\r\n\r\ndef test_word2vec(text):\r\n    model = Word2Vec(\r\n        text,\r\n        size=100,\r\n        window=10,\r\n        min_count=2,\r\n        workers=10\r\n    )\r\n    model.train(text, total_examples=len(text), epochs=10)\r\n    model.save('word2vec.model')\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/WordEmbeddings.py b/WordEmbeddings.py
+--- a/WordEmbeddings.py	(revision fac735a48153918e93fce27524ad5b2f6d96c1d1)
++++ b/WordEmbeddings.py	(date 1613837737513)
+@@ -2,12 +2,11 @@
+ from sklearn.feature_extraction.text import TfidfVectorizer
+ 
+ 
+-def extract_tfidf_features(tweets):
++def extract_tfidf_featuriser(tweets):
+     tfidf_featuriser = TfidfVectorizer()
+     tfidf_featuriser.fit(tweets)
+-    tfidf_matrix = tfidf_featuriser.transform(tweets)
+ 
+-    return tfidf_matrix
++    return tfidf_featuriser
+ 
+ 
+ def test_word2vec(text):
