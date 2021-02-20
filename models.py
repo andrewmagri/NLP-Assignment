@@ -1,8 +1,0 @@
-from sklearn.naive_bayes import MultinomialNB
-
-
-def naive_bayes_classifier(tfidf_matrix, labels):
-    nb_classifier = MultinomialNB()
-    nb_classifier.fit(tfidf_matrix, labels)
-    # to test the classifier
-    # predictions = nb_classifier.predict(test_tfidf_docterm_matrix)
