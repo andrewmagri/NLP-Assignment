@@ -88,7 +88,7 @@ def preprocess(tweets,labels):
 
 
 def svm(tfidf_matrix, labels):
-    clf = make_pipeline(StandardScaler(), SVC(gamma='auto'))
+    clf = make_pipeline(StandardScaler(with_mean=False), SVC(gamma='auto'))
     clf.fit(tfidf_matrix, labels)
     return clf
 
