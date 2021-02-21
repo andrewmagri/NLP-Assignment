@@ -58,7 +58,6 @@ with tf.summary.create_file_writer('logs/hparam_tuning/' + dateAndTimeNow).as_de
 
 
 def train_test_model2(hparams):
-    # Best 0.96
     step = X_train.shape[1]
     model = Sequential()
     model.add(Embedding(input_dimension,
