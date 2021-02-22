@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 def get_class_names():
     output_classes = []
-    with open("Semeval2018-Task2-EmojiPrediction\\mapping\\us_mapping.txt", "r",encoding="utf8") as l:
+    with open("..\\Semeval2018-Task2-EmojiPrediction\\mapping\\us_mapping.txt", "r",encoding="utf8") as l:
         classes = l.read()
         classes = classes.split("\n")
         for className in classes:
@@ -17,7 +17,7 @@ def get_class_names():
     return output_classes
 
 
-def evaluate_model(model, test_text, true_labels, predicted_labels):
+def evaluate_model(modelName, true_labels, predicted_labels):
     #print(confusion_matrix(true_labels, predicted_labels,labels=get_class_names()))
     print("Precision: " + str(precision_score(true_labels, predicted_labels,average="micro")))
     print("Recall: " + str(recall_score(true_labels, predicted_labels,average="micro")))
@@ -39,7 +39,7 @@ def evaluate_model(model, test_text, true_labels, predicted_labels):
     fig = plt.figure()
     ax = fig.add_subplot(111)
     cax = ax.matshow(confusion_matrixActual)
-    plt.title('Confusion matrix of the classifier')
+    plt.title('Confusion matrix of the classifier' + modelName)
     fig.colorbar(cax)
     ax.set_xticklabels([''] + labels)
     ax.set_yticklabels([''] + labels)
