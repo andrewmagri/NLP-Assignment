@@ -1,0 +1,23 @@
+C:\Users\attar\Anaconda3\envs\NLP3rdYear3-7\python.exe "C:\Program Files\JetBrains\PyCharm 2020.3.3\plugins\python\helpers\pydev\pydevd.py" --multiproc --qt-support=auto --client 127.0.0.1 --port 56935 --file "C:/Users/attar/Desktop/AI 3rd Year/NLP/Assignment/NLP-Assignment/Models/NewSVM.py"
+Connected to pydev debugger (build 203.7148.72)
+Macro F-Score (official): 22.906
+-----
+Micro F-Score: 35.301
+Precision: 35.301
+Recall: 35.301
+Precision: 0.3248609550632545
+Recall: 0.2304438927841422
+F1 Score: 0.22906078435608462
+Accuracy: 35.301%
+FP [15503  3466   529   574  1061    63   105   381    82   711   362    50
+  5370   254  1713   547   597   642   216   123]
+FN [3087 3541 1285  882  708 1061 1287 1076 1118  391 2242 1003 2031 2534
+ 1908 1543 1789 2291 1429 1143]
+TP [7711 1289  147 1067  557   53   19  168   35 1154  175    7 2503   71
+ 1808   69  207  458  120   32]
+C:\Users\attar\Desktop\AI 3rd Year\NLP\Assignment\NLP-Assignment\Scorer.py:97: UserWarning: FixedFormatter should only be used together with FixedLocator
+  ax.set_xticklabels([''] + labels)
+C:\Users\attar\Desktop\AI 3rd Year\NLP\Assignment\NLP-Assignment\Scorer.py:98: UserWarning: FixedFormatter should only be used together with FixedLocator
+  ax.set_yticklabels([''] + labels)
+
+Process finished with exit code 0

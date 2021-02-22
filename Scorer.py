@@ -9,20 +9,17 @@ def f1(precision,recall):
     return (2.0*precision*recall)/(precision+recall)
 
 
-def main(path_goldstandard, path_outputfile):
+def official_evaluator(true_labels, predicated_labels):
 
     truth_dict={}
     output_dict_correct={}
     output_dict_attempted={}
-    truth_file_lines=open(path_goldstandard,encoding='utf8').readlines()
-    submission_file_lines=open(path_outputfile,encoding='utf8').readlines()
-    if len(submission_file_lines)!=len(truth_file_lines): print("Inconsistent number of inputs")
-    for i in range(len(submission_file_lines)):
-        line=submission_file_lines[i]
-        emoji_code_gold=truth_file_lines[i].replace("\n","")
+    if len(true_labels)!=len(predicated_labels): print("Inconsistent number of inputs")
+    for i in range(len(predicated_labels)):
+        emoji_code_gold=true_labels[i]
         if emoji_code_gold not in truth_dict: truth_dict[emoji_code_gold]=1
         else: truth_dict[emoji_code_gold]+=1
-        emoji_code_output=submission_file_lines[i].replace("\n","")
+        emoji_code_output=predicated_labels[i]
         if emoji_code_output==emoji_code_gold:
             if emoji_code_output not in output_dict_correct: output_dict_correct[emoji_code_gold]=1
             else: output_dict_correct[emoji_code_output]+=1
