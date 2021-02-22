@@ -82,7 +82,7 @@ def lstm(hparams, input_dimension, output_dimension=300, max_length):
 def run(run_dir, hparams):
     with tf.summary.create_file_writer(run_dir).as_default():
         hp.hparams(hparams)  # record the values used in this trial
-        accuracy = train_test_model2(hparams)
+        accuracy = lstm(hparams)
         tf.summary.scalar(METRIC_ACCURACY, accuracy, step=1)
 
 
