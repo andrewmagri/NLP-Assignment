@@ -16,7 +16,7 @@ def main(path_goldstandard, path_outputfile):
     output_dict_attempted={}
     truth_file_lines=open(path_goldstandard,encoding='utf8').readlines()
     submission_file_lines=open(path_outputfile,encoding='utf8').readlines()
-    if len(submission_file_lines)!=len(truth_file_lines): sys.exit('ERROR: Number of lines in gold and output files differ')
+    if len(submission_file_lines)!=len(truth_file_lines): print("Inconsistent number of inputs")
     for i in range(len(submission_file_lines)):
         line=submission_file_lines[i]
         emoji_code_gold=truth_file_lines[i].replace("\n","")
