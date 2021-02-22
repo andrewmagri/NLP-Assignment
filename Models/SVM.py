@@ -29,10 +29,10 @@ def run(trainTweets, testTweets):
     evaluate_model("SVM",y_test, predictions)
 
 
-trainTextDir = "Semeval2018-Task2-EmojiPrediction\\Data\\tweet_by_ID_04_2_2021__05_27_42.txt.text"
-trainLabelDir = "Semeval2018-Task2-EmojiPrediction\\Data\\tweet_by_ID_04_2_2021__05_27_42.txt.labels"
-testTextDir = "Semeval2018-Task2-EmojiPrediction\\test\\us_test.text"
-testLabelDir = "Semeval2018-Task2-EmojiPrediction\\test\\us_test.labels"
+trainTextDir = "..\\Semeval2018-Task2-EmojiPrediction\\Data\\tweet_by_ID_04_2_2021__05_27_42.txt.text"
+trainLabelDir = "..\\Semeval2018-Task2-EmojiPrediction\\Data\\tweet_by_ID_04_2_2021__05_27_42.txt.labels"
+testTextDir = "..\\Semeval2018-Task2-EmojiPrediction\\test\\us_test.text"
+testLabelDir = "..\\Semeval2018-Task2-EmojiPrediction\\test\\us_test.labels"
 trainTweets = get_train_data(trainTextDir, trainLabelDir)
 testTweets = get_test_data(testTextDir, testLabelDir)
 

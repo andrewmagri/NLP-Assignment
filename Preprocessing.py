@@ -3,7 +3,7 @@ from nltk.corpus import stopwords
 from nltk.tokenize import TweetTokenizer
 from nltk.stem import WordNetLemmatizer
 import re
-
+from Tweets import *
 
 def remove_stopwords(word):
     if word == "" or word is None:
@@ -55,3 +55,35 @@ def remove_puncuation(word):
 def lemmatise(word):
     lemmatizer = WordNetLemmatizer()
     return lemmatizer.lemmatize(word)
+
+
+def preprocess(tweets,labels):
+    tweets_object = Tweets()
+    for i in range(0, len(tweets)):
+        tweets[i] = " ".join(tweets[i].split())
+        tweets[i] = tokenize(tweets[i])
+
+        newText = []
+        for word in tweets[i]:
+            # Checking for @ Location and eliminating any words that follow
+            if word == "@":
+                continue
+
+            word = lemmatise(word)
+            word = remove_stopwords(word)
+            word = remove_url(word)
+            word = remove_puncuation(word)
+            word = remove_numbers(word)
+
+            if word is not None and word != "" and word[0] == "#":
+                word = word[1:]
+
+            if word is not None and word != "":
+                newText.append(word)
+
+        if len(newText) == 0:
+            continue
+
+        tweets_object.tweetsText.append(' '.join(newText))
+        tweets_object.tweetsLabel.append(labels[i])
+    return tweets_object
