@@ -44,8 +44,8 @@ def remove_puncuation(word):
     pattern_exclamation_mark = r'\!'
     pattern_word = r'\w+'
     pattern_hashtag = r'#\w+'
+    #pattern_underscore = r'\_' #nistghu?
 
-    filtered_text = []
 
 
     if re.match(pattern_word,word) or re.match(pattern_exclamation_mark,word) or re.match(pattern_question_mark,word) or re.match(pattern_hashtag,word):
@@ -56,6 +56,15 @@ def lemmatise(word):
     lemmatizer = WordNetLemmatizer()
     return lemmatizer.lemmatize(word)
 
+def remove_underscores(word):
+    if word == "" or word is None:
+        return word
+
+    tempReturn = []
+    for char in word:
+        if char != "_":
+            tempReturn.append(char)
+    return ''.join(tempReturn)
 
 def preprocess(tweets,labels):
     tweets_object = Tweets()
@@ -70,10 +79,14 @@ def preprocess(tweets,labels):
                 continue
 
             word = lemmatise(word)
+            word = remove_underscores(word)
             word = remove_stopwords(word)
             word = remove_url(word)
-            word = remove_puncuation(word)
             word = remove_numbers(word)
+            word = remove_puncuation(word)
+
+            if word is not None and word != "" and word == "___":
+                continue
 
             if word is not None and word != "" and word[0] == "#":
                 word = word[1:]
