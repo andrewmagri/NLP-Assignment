@@ -51,29 +51,3 @@ def get_test_data(dirTestText, dirTestLabel):
         return get_data(dirTestText, dirTestLabel, filename)
 
 
-def preprocess(tweets,labels):
-    tweets_object = Tweets()
-    for i in range(0, len(tweets)):
-        tweets[i] = " ".join(tweets[i].split())
-        tweets[i] = tokenize(tweets[i])
-
-        newText = []
-        for word in tweets[i]:
-            # Checking for @ Location and eliminating any words that follow
-            if word == "@":
-                break
-
-            word = lemmatise(word)
-            word = remove_stopwords(word)
-            word = remove_url(word)
-            word = remove_puncuation(word)
-
-            if word != "" and word is not None:
-                newText.append(word)
-
-        if len(newText) == 0:
-            continue
-
-        tweets_object.tweetsText.append(' '.join(newText))
-        tweets_object.tweetsLabel.append(labels[i])
-    return tweets_object

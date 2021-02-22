@@ -57,7 +57,7 @@ with tf.summary.create_file_writer('logs/hparam_tuning/' + dateAndTimeNow).as_de
     )
 
 
-def train_test_model2(hparams):
+def lstm(hparams, input_dimension, output_dimension=300, max_length):
     step = X_train.shape[1]
     model = Sequential()
     model.add(Embedding(input_dimension,
@@ -82,7 +82,7 @@ def train_test_model2(hparams):
 def run(run_dir, hparams):
     with tf.summary.create_file_writer(run_dir).as_default():
         hp.hparams(hparams)  # record the values used in this trial
-        accuracy = train_test_model2(hparams)
+        accuracy = lstm(hparams)
         tf.summary.scalar(METRIC_ACCURACY, accuracy, step=1)
 
 
