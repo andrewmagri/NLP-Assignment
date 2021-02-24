@@ -4,7 +4,8 @@ import pickle
 
 def check_if_created(filename):
     try:
-        file = open("..\\" +filename + ".pickle")
+        file = open(filename + ".pickle")
+        # file = open("..\\" +filename + ".pickle")
         file.close()
         return True
     except IOError:
@@ -36,7 +37,8 @@ def get_data(dirText, dirLabel,output_file_name):
 def get_train_data(dirTrainText, dirTrainLabel):
     filename = "TrainTweets"
     if check_if_created(filename):
-        with open("..\\"+filename + '.pickle', 'rb') as handle:
+        with open(filename + '.pickle', 'rb') as handle:
+        # with open("..\\"+filename + '.pickle', 'rb') as handle:
             return pickle.load(handle)
     else:
         return get_data(dirTrainText, dirTrainLabel,filename)
@@ -45,7 +47,8 @@ def get_train_data(dirTrainText, dirTrainLabel):
 def get_test_data(dirTestText, dirTestLabel):
     filename = "TestTweets"
     if check_if_created(filename):
-        with open("..\\"+filename + '.pickle', 'rb') as handle:
+        with open(filename + '.pickle', 'rb') as handle:
+        # with open("..\\"+filename + '.pickle', 'rb') as handle:
             return pickle.load(handle)
     else:
         return get_data(dirTestText, dirTestLabel, filename)

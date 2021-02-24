@@ -60,7 +60,8 @@ def official_evaluator(true_labels, predicated_labels):
 
 def get_class_names():
     output_classes = []
-    with open("..\\Semeval2018-Task2-EmojiPrediction\\mapping\\us_mapping.txt", "r",encoding="utf8") as l:
+    # with open("..\\Semeval2018-Task2-EmojiPrediction\\mapping\\us_mapping.txt", "r",encoding="utf8") as l:
+    with open("Semeval2018-Task2-EmojiPrediction\\mapping\\us_mapping.txt", "r",encoding="utf8") as l:
         classes = l.read()
         classes = classes.split("\n")
         for className in classes:
