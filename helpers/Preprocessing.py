@@ -1,54 +1,63 @@
-import nltk
+from Tweets import Tweets
 from nltk.corpus import stopwords
 from nltk.tokenize import TweetTokenizer
 from nltk.stem import WordNetLemmatizer
 import re
-from Tweets import *
 
+
+# Removing stopword based off nltk english stopwords
 def remove_stopwords(word):
     if word == "" or word is None:
         return word
 
     englishStopwords = stopwords.words('english')
-    text_nostop = []
+
+    # If the word is not a stop word, return it
     if word not in englishStopwords:
         #return word.lower()
         return word
 
 
+# Tokenizing the tweet text by using NLTK's TweetTokenizer which also lowercases words
 def tokenize(text):
     tokenizer = TweetTokenizer(preserve_case=False, reduce_len=True, strip_handles=True)
     text = tokenizer.tokenize(text)
     return text
 
 
+# Removing urls
 def remove_url(word):
     if word == "" or word is None:
         return word
 
-    text_filtered = []
+    # Using regex to match urls
     regex = re.compile("^https?:\/\/.*[\r\n]*")
     if not regex.match(word):
         return word
 
 
+# Removing numbers
 def remove_numbers(word):
     if word == "" or word is None:
         return word
+
+    # Replacing numbers with an empty space
     return re.sub(r'\d+', '', word)
 
+
+# Removing puncuation
 def remove_puncuation(word):
     if word == "" or word is None:
         return word
-    # Only allowing words, question mark or exclamation
+
+    # Only allowing words, question mark or exclamation marks
     pattern_question_mark = r'\?'
     pattern_exclamation_mark = r'\!'
     pattern_word = r'\w+'
     pattern_hashtag = r'#\w+'
-    #pattern_underscore = r'\_' #nistghu?
+    #pattern_underscore = r'\_'
 
-
-
+    # If the word (token) is either a word or a question mark or an exclamation mark it is returned
     if re.match(pattern_word,word) or re.match(pattern_exclamation_mark,word) or re.match(pattern_question_mark,word) or re.match(pattern_hashtag,word):
         return word
 
@@ -67,7 +76,7 @@ def remove_underscores(word):
             tempReturn.append(char)
     return ''.join(tempReturn)
 
-def preprocess(tweets,labels):
+def preprocess(tweets,labels,location):
     tweets_object = Tweets()
     for i in range(0, len(tweets)):
         #tweets[i] = " ".join(tweets[i].split())
@@ -75,9 +84,14 @@ def preprocess(tweets,labels):
 
         newText = []
         for word in tweets[i]:
-            # Checking for @ Location and eliminating any words that follow
+            # Checking for @ Location
+            # If the location is required the @ symbol is eliminated are the rest of the text is processed
+            # If the location is not required the @ symbol and the remaining test are discarded
             if word == "@":
-                break
+                if location:
+                    continue
+                if not location:
+                    break
 
             word = lemmatise(word)
             word = remove_underscores(word)
@@ -85,6 +99,9 @@ def preprocess(tweets,labels):
             word = remove_url(word)
             word = remove_numbers(word)
             word = remove_puncuation(word)
+
+            if word is not None and word != "":
+                word = word.lower()
 
             if word is not None and word != "" and word == "___":
                 continue

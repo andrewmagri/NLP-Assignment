@@ -34,8 +34,13 @@ def get_data(dirText, dirLabel,output_file_name):
     return tweets_object
 
 
-def get_train_data(dirTrainText, dirTrainLabel):
-    filename = "TrainTweets"
+def get_train_data(dirTrainText, dirTrainLabel,location):
+    if location:
+        filename = "TrainTweetsWithLocation"
+    else:
+        filename = "TrainTweetsWithoutLocation"
+
+
     if check_if_created(filename):
         with open(filename + '.pickle', 'rb') as handle:
         # with open("..\\"+filename + '.pickle', 'rb') as handle:
@@ -44,8 +49,11 @@ def get_train_data(dirTrainText, dirTrainLabel):
         return get_data(dirTrainText, dirTrainLabel,filename)
 
 
-def get_test_data(dirTestText, dirTestLabel):
-    filename = "TestTweets"
+def get_test_data(dirTestText, dirTestLabel,location):
+    if location:
+        filename = "TestTweetsWithLocation"
+    else:
+        filename = "TestTweetsWithoutLocation"
     if check_if_created(filename):
         with open(filename + '.pickle', 'rb') as handle:
         # with open("..\\"+filename + '.pickle', 'rb') as handle:

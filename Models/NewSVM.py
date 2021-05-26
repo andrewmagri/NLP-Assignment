@@ -65,7 +65,7 @@ def run(train_tweets, test_tweets):
     w_ngram_min = 1
     w_ngram_max = 4
     c_ngram_min = 1
-    c_ngram_max = 9
+    c_ngram_max = 6
 
 
     train_features = convert_tweets_to_ngrams(train_tweets.tweetsText,w_ngram_min,w_ngram_max,c_ngram_min,c_ngram_max)
@@ -79,7 +79,7 @@ def run(train_tweets, test_tweets):
         pickle.dump(vectoriser, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
-    test_features = convert_tweets_to_ngrams(test_tweets.tweetsText,n_min,n_max)
+    test_features = convert_tweets_to_ngrams(test_tweets.tweetsText,w_ngram_min,w_ngram_max,c_ngram_min,c_ngram_max)
     test_vectors = vectoriser.transform(test_features)
 
 
@@ -102,10 +102,9 @@ trainTextDir = "..\\Semeval2018-Task2-EmojiPrediction\\Data\\tweet_by_ID_04_2_20
 trainLabelDir = "..\\Semeval2018-Task2-EmojiPrediction\\Data\\tweet_by_ID_04_2_2021__05_27_42.txt.labels"
 testTextDir = "..\\Semeval2018-Task2-EmojiPrediction\\test\\us_test.text"
 testLabelDir = "..\\Semeval2018-Task2-EmojiPrediction\\test\\us_test.labels"
-train_tweets = get_train_data(trainTextDir, trainLabelDir)
-test_tweets = get_test_data(testTextDir, testLabelDir)
+tweets_with_location = True
 
-train_tweets.tweetsText = train_tweets.tweetsText
-train_tweets.tweetsLabel = train_tweets.tweetsLabel
+train_tweets = get_train_data(trainTextDir, trainLabelDir, tweets_with_location)
+test_tweets = get_test_data(testTextDir, testLabelDir,tweets_with_location)
 
 run(train_tweets,test_tweets)
